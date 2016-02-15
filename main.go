@@ -38,6 +38,25 @@ func (n *Node) Add(s string) *Node {
 	return newNode
 }
 
+func (n *Node) Remove(toRemove string) *Node {
+	var prev *Node
+
+	var head = n
+
+	for n != nil {
+		if n.value == toRemove {
+			if prev != nil {
+				prev.next = n.next
+				return head
+			}
+			return n.next
+		}
+		prev = n
+		n = n.next
+	}
+	return head
+}
+
 // singly-linked list of nodes
 // metadata
 // e.g. link to next node

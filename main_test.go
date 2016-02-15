@@ -52,4 +52,43 @@ func TestMain(t *testing.T) {
 		})
 	})
 
+	Convey("Given a list containing 'foo' and 'fo1'", t, func() {
+		var list *Node
+		list = list.Add("foo").Add("fo1")
+
+		Convey("when removing 'foo', returns the list containing fo1", func() {
+			list = list.Remove("foo")
+			So(list.Array(), ShouldResemble, []string{"fo1"})
+		})
+
+		Convey("when removing 'fo1', returns the list containing foo", func() {
+			list = list.Remove("fo1")
+			So(list.Array(), ShouldResemble, []string{"foo"})
+		})
+
+		Convey("when removing 'fo1' and 'foo', returns the empty list", func() {
+			list = list.Remove("fo1").Remove("foo")
+			So(list.Array(), ShouldResemble, []string{})
+		})
+	})
+
+	Convey("Given a list containing 'foo' and 'fo1' and fo2", t, func() {
+		var list *Node
+		list = list.Add("foo").Add("fo1").Add("fo2")
+
+		Convey("when removing 'foo', returns the list containing fo2, fo1", func() {
+			list = list.Remove("foo")
+			So(list.Array(), ShouldResemble, []string{"fo2", "fo1"})
+		})
+
+		Convey("when removing 'fo1', returns the list containing fo2, foo", func() {
+			list = list.Remove("fo1")
+			So(list.Array(), ShouldResemble, []string{"fo2", "foo"})
+		})
+
+		Convey("when removing 'fo2', returns the list containing fo2, foo", func() {
+			list = list.Remove("fo2")
+			So(list.Array(), ShouldResemble, []string{"fo1", "foo"})
+		})
+	})
 }
