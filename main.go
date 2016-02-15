@@ -57,6 +57,17 @@ func (n *Node) Remove(toRemove string) *Node {
 	return head
 }
 
+func (n *Node) Find(s string) *Node {
+	if n == nil {
+		return nil
+	}
+	if n.value == s {
+		return n
+	} else {
+		return n.next.Find(s)
+	}
+}
+
 // singly-linked list of nodes
 // metadata
 // e.g. link to next node

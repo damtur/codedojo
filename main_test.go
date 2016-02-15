@@ -40,6 +40,12 @@ func TestMain(t *testing.T) {
 			})
 		})
 
+		Convey("when searching for bar it returns nil", func() {
+			var list *Node
+			node := list.Find("bar")
+			So(node, ShouldEqual, nil)
+		})
+
 	})
 
 	Convey("Given a list containing 'foo'", t, func() {
@@ -89,6 +95,16 @@ func TestMain(t *testing.T) {
 		Convey("when removing 'fo2', returns the list containing fo2, foo", func() {
 			list = list.Remove("fo2")
 			So(list.Array(), ShouldResemble, []string{"fo1", "foo"})
+		})
+
+		Convey("when searching for foo it returns Node with value foo", func() {
+			node := list.Find("foo")
+			So(node.value, ShouldEqual, "foo")
+		})
+
+		Convey("when searching for bar it returns nil", func() {
+			node := list.Find("bar")
+			So(node, ShouldEqual, nil)
 		})
 	})
 }
