@@ -16,32 +16,26 @@ func returnTrue() bool {
 // 	value string
 // }
 
-type List interface {
-	Array() []string
-	Add(string)
+type Node struct {
+	value string
+	next  *Node
 }
 
-type list struct {
-	value *string
-	next  *List
-}
-
-func NewList() List {
-	return &list{
-		value: nil,
-		next:  nil,
+func (n *Node) Array() []string {
+	result := []string{}
+	for n != nil {
+		result = append(result, n.value)
+		n = n.next
 	}
+	return result
 }
 
-func (n *list) Array() []string {
-	if n.value == nil {
-		return []string{}
+func (n *Node) Add(s string) *Node {
+	newNode := &Node{
+		value: s,
+		next:  n,
 	}
-	return []string{*n.value}
-}
-
-func (n *list) Add(toAdd string) list {
-	n.value = &toAdd
+	return newNode
 }
 
 // singly-linked list of nodes
