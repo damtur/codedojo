@@ -10,10 +10,6 @@ import (
 
 func TestMain(t *testing.T) {
 
-	Convey("Given code dojo", t, func() {
-		So(returnTrue(), ShouldEqual, true)
-	})
-
 	Convey("Given a empty list", t, func() {
 		Convey("when converting to an slice", func() {
 
