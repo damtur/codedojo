@@ -41,4 +41,15 @@ func TestMain(t *testing.T) {
 		})
 
 	})
+
+	Convey("Given a list containing 'foo'", t, func() {
+		var list *Node
+		list = list.Add("foo")
+
+		Convey("when removing 'foo', returns the empty list", func() {
+			list = list.Remove("foo")
+			So(list.Array(), ShouldResemble, []string{})
+		})
+	})
+
 }
