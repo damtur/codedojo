@@ -71,6 +71,7 @@ func TestMain(t *testing.T) {
 		Convey("when removing 'fo1' and 'foo', returns the empty list", func() {
 			list = list.Remove("fo1").Remove("foo")
 			So(list.Array(), ShouldResemble, []string{})
+			So(list, ShouldEqual, nil)
 		})
 	})
 
@@ -81,16 +82,23 @@ func TestMain(t *testing.T) {
 		Convey("when removing 'foo', returns the list containing fo2, fo1", func() {
 			list = list.Remove("foo")
 			So(list.Array(), ShouldResemble, []string{"fo2", "fo1"})
+			So(list.next.prev, ShouldEqual, list)
 		})
 
 		Convey("when removing 'fo1', returns the list containing fo2, foo", func() {
 			list = list.Remove("fo1")
 			So(list.Array(), ShouldResemble, []string{"fo2", "foo"})
+
+			So(list.next.value, ShouldEqual, "foo")
+			So(list.prev, ShouldEqual, nil)
+			So(list.next.prev, ShouldEqual, list)
+
 		})
 
 		Convey("when removing 'fo2', returns the list containing fo2, foo", func() {
 			list = list.Remove("fo2")
 			So(list.Array(), ShouldResemble, []string{"fo1", "foo"})
+			So(list.next.prev, ShouldEqual, list)
 		})
 
 		Convey("when searching for foo it returns Node with value foo", func() {
@@ -101,6 +109,9 @@ func TestMain(t *testing.T) {
 		Convey("when searching for bar it returns nil", func() {
 			node := list.Find("bar")
 			So(node, ShouldEqual, nil)
+			So(list.prev, ShouldEqual, nil)
+			So(list.next, ShouldEqual, list.next.prev.next)
 		})
+
 	})
 }

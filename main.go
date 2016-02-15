@@ -11,6 +11,7 @@ func main() {
 type Node struct {
 	value string
 	next  *Node
+	prev  *Node
 }
 
 func (n *Node) Array() []string {
@@ -26,6 +27,11 @@ func (n *Node) Add(s string) *Node {
 	newNode := &Node{
 		value: s,
 		next:  n,
+		prev:  nil,
+	}
+	if newNode.next != nil {
+		// I love you
+		newNode.next.prev = newNode
 	}
 	return newNode
 }
@@ -37,6 +43,9 @@ func (n *Node) Remove(toRemove string) *Node {
 
 	for n != nil {
 		if n.value == toRemove {
+			if n.next != nil {
+				n.next.prev = n.prev
+			}
 			if prev != nil {
 				prev.next = n.next
 				return head
